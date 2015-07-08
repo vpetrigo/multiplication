@@ -6,11 +6,14 @@
 using namespace std;
 
 constexpr int base = 10;
+constexpr int len_f_naive = 1;
 
 vector<int> get_number(istream& is);
 void print_vec(const vector<int>& v);
+void print_res(const vector<int>& v);
 void extend_vec(vector<int>& v, int len);
 vector<int> naive_mul(const vector<int>& x, const vector<int>& y);
+vector<int> karatsuba_mul(const vector<int>& x, const vector<int>& y);
 void finalize(vector<int>& res);
 
 int main() {
@@ -23,22 +26,20 @@ int main() {
     
     int n = max(first.size(), second.size());
     
-    if (second.size() < n) {
-        extend_vec(second, n - second.size());
-    }
-    else {
-        extend_vec(first, n - first.size());
-    }
+    extend_vec(first, n);
+    extend_vec(second, n);
+    
     
     clock_t t;
     t = clock();
     
-    res = naive_mul(first, second);
+    //res = naive_mul(first, second);
+    res = karatsuba_mul(first, second);
     finalize(res);
     
     t = clock() - t;
     
-    print_vec(res);
+    print_res(res);
     
     cout << "It took me " << t << " cycles (" << t / CLOCKS_PER_SEC <<
         " seconds)\n";
@@ -65,7 +66,13 @@ void print_vec(const vector<int>& v) {
     cout << endl;
 }
 
-void extend_vec(vector<int>& v, int len) {
+void extend_vec(vector<int>& v, int len) {    
+    while (len & (len - 1)) {
+        ++len;
+    }
+    
+    len -= v.size();
+    
     while (len--) {
         v.push_back(0);
     }
@@ -89,4 +96,86 @@ void finalize(vector<int>& res) {
         res[i + 1] += res[i] / base;
         res[i] %= base;
     }
+}
+
+vector<int> karatsuba_mul(const vector<int>& x, const vector<int>& y) {
+    int len = x.size();    
+    vector<int> res(2 * len);
+    cout << "res: ";
+    print_vec(res);
+    
+    if (len <= len_f_naive) {
+        return naive_mul(x, y);
+    }
+    
+    int k = len / 2;
+    
+    vector<int> Xr {x.begin(), x.begin() + k};
+    vector<int> Xl {x.begin() + k, x.end()};
+    vector<int> Yr {y.begin(), y.begin() + k};
+    vector<int> Yl {y.begin() + k, y.end()};
+    
+    vector<int> P1 = karatsuba_mul(Xl, Yl);
+    vector<int> P2 = karatsuba_mul(Xr, Yr);    
+    
+    cout << "P1: ";
+    print_vec(P1);
+    cout << "P2: ";
+    print_vec(P2);
+    
+    vector<int> Xlr(k);
+    vector<int> Ylr(k);
+    
+    for (int i = 0; i < k; ++i) {
+        Xlr[i] = Xl[i] + Xr[i];
+        Ylr[i] = Yl[i] + Yr[i];
+    }
+    
+    vector<int> P3 = karatsuba_mul(Xlr, Ylr);
+    
+    cout << "P3: ";
+    print_vec(P3);
+    
+    for (int i = 0; i < k; ++i) {
+        P3[i] -= P2[i] + P1[i];
+    }
+    
+    cout << "P3 - P2 - P1: ";
+    print_vec(P3);
+    
+    for (int i = 0; i < k; ++i) {
+        res[i] = P2[i];
+    }
+    
+    cout << "res: ";
+    print_vec(res);
+    
+    for (int i = len; i < 2 * len; ++i) {
+        res[i] = P1[i - len];
+    }
+    
+    cout << "res: ";
+    print_vec(res);
+    
+    for (int i = k; i < len; ++i) {
+        res[i] += P3[i - k];
+    }
+    
+    cout << "res: ";
+    print_vec(res);
+    
+    return res;
+}
+
+void print_res(const vector<int>& v) {
+    int pos = v.size() - 1;
+
+    while (!v[pos]) {
+        --pos;
+    }
+    
+    while (pos >= 0) {
+        cout << v[pos--];
+    }
+    cout << endl;
 }
