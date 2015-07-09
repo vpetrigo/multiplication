@@ -19,10 +19,15 @@ void finalize(vector<int>& res);
 int main() {
     vector<int> first, second;
     vector<int> res;
-    ifstream ifs{R"(C:/Users/Vladimir/Desktop/file.txt)"};
+    ifstream ifs{"nums.txt"};
     
-    first = get_number(ifs);
-    second = get_number(ifs);
+    if (!ifs) {
+        cerr << "Error: File could not be found\n";
+        return 1;
+    }
+    
+    first = get_number(cin);
+    second = get_number(cin);
     
     int n = max(first.size(), second.size());
     
@@ -33,8 +38,8 @@ int main() {
     clock_t t;
     t = clock();
     
-    res = naive_mul(first, second);
-    //res = karatsuba_mul(first, second);
+    //res = naive_mul(first, second);
+    res = karatsuba_mul(first, second);
     finalize(res);
     
     t = clock() - t;
@@ -52,7 +57,7 @@ vector<int> get_number(istream& is) {
     vector<int> vnum;
     is >> snum;
     
-    for (auto it = snum.rbegin(); it != snum.rend(); ++it) {
+    for (auto it = snum.crbegin(); it != snum.crend(); ++it) {
         vnum.push_back(*it - '0');
     }
     
