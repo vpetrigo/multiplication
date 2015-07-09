@@ -26,8 +26,8 @@ int main() {
         return 1;
     }
     
-    first = get_number(cin);
-    second = get_number(cin);
+    first = get_number(ifs);
+    second = get_number(ifs);
     
     int n = max(first.size(), second.size());
     
@@ -151,14 +151,14 @@ vector<int> karatsuba_mul(const vector<int>& x, const vector<int>& y) {
 }
 
 void print_res(const vector<int>& v) {
-    int pos = v.size() - 1;
+    vector<int>::const_reverse_iterator cit = v.crbegin();
 
-    while (!v[pos]) {
-        --pos;
+    while (!*cit) {
+        ++cit;
     }
     
-    while (pos >= 0) {
-        cout << v[pos--];
+    while (cit != v.crend()) {
+        cout << *cit++;
     }
     cout << endl;
 }
