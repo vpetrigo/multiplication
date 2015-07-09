@@ -27,6 +27,7 @@ and Karatsuba algorithm (which takes ![BigO^log](https://upload.wikimedia.org/ma
     ```
 3. And finalize your result by using`finalize(res);`
 4. Call `print_res()` function for getting the result:
+
     ```C++
     // Pass the result vector to it
     print_res(res);
