@@ -4,7 +4,7 @@ Here is very basic implementation of naive multiplication (which takes ![BigO^2]
 and Karatsuba algorithm (which takes ![BigO^log](https://upload.wikimedia.org/math/a/f/0/af0bdd77b22562e62e5ba2233558d7bd.png)).
 
     1. Standard sequence for the both algorithms:
-    ```cpp
+    ```c_cpp
     // Getting number from the input (stdin, file, etc.)
     vector<int> first = get_number(cin);
     vector<int> second = get_number(cin);
@@ -19,19 +19,19 @@ and Karatsuba algorithm (which takes ![BigO^log](https://upload.wikimedia.org/ma
     
     2. Then you should select prefered multiplication algorithm.
         - For using naive multiplication:
-        ```cpp
+        ```c_cpp
         vector<int> res = naive_mul(first, second);
         ```
         - For using Karatsuba multiplication:
-        ```cpp
+        ```c_cpp
         vector<int> res = karatsuba_mul(first, second);
         ```
     3. And finalize your result:
-    ```cpp
+    ```c_cpp
     finalize(res);
     ```
     4. Call ```print_res()``` function for getting the result:
-    ```cpp
+    ```c_cpp
     print_res(res);
     ```
 
