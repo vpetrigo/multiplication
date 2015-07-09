@@ -25,11 +25,8 @@ and Karatsuba algorithm (which takes ![BigO^log](https://upload.wikimedia.org/ma
     ```C++
     vector<int> res = karatsuba_mul(first, second);
     ```
-3. And finalize your result:
-    ```C++
-    finalize(res);
-    ```
-4. Call ```print_res()``` function for getting the result:
+3. And finalize your result by using`finalize(res);`
+4. Call `print_res()` function for getting the result:
     ```C++
     print_res(res);
     ```
