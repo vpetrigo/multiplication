@@ -27,9 +27,10 @@ and Karatsuba algorithm (which takes ![BigO^log](https://upload.wikimedia.org/ma
     ```
 3. And finalize your result by using`finalize(res);`
 4. Call `print_res()` function for getting the result:
-    ```C++
-    print_res(res);
-    ```
+```C++
+// Some comment
+print_res(res);
+```
 
 Now, it is using vectors for storing numbers with base 10. Further improvments should be
 to change base of all numbers which are stored in input vector.
