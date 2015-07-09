@@ -16,7 +16,6 @@ int n = max(first.size(), second.size());
 extend_vec(first, n);
 extend_vec(second, n);   
 ```
-
 2. Then you should select prefered multiplication algorithm.
     - For using naive multiplication:
     ```c_cpp
