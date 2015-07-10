@@ -37,7 +37,7 @@ int main() {
     
     print_res(res, ofs);
     
-    cout << "Naive algorithm took me " << t << " cycles (" << t / CLOCKS_PER_SEC <<
+    cout << "Naive algorithm took me " << t << " cycles (" << static_cast<float> (t) / CLOCKS_PER_SEC <<
         " seconds)\n";
     
     t = clock();
@@ -49,7 +49,7 @@ int main() {
     
     print_res(res, ofs);
     
-    cout << "Karatsuba algorithm took me " << t << " cycles (" << t / CLOCKS_PER_SEC <<
+    cout << "Karatsuba algorithm took me " << t << " cycles (" << static_cast<float> (t) / CLOCKS_PER_SEC <<
         " seconds)\n";
     
     return 0;
