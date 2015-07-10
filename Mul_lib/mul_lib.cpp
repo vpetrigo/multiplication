@@ -3,9 +3,14 @@
 using namespace std;
 
 namespace Mul_lib {
+    // current base functions use for operate with long integers
     constexpr int base = 1e2;
+    // lenght of the long number for which naive multiplication
+    // will be called in the Karatsuba function
     constexpr int len_f_naive = 16;
+    // One digit size for numbers with bases multiple of ten
     constexpr int dig_size = 10;
+    // How much zeroes have to be in the number
     constexpr int add_zero = base / dig_size;
 
     vector<int> naive_mul(const vector<int>& x, const vector<int>& y) {
@@ -116,6 +121,7 @@ namespace Mul_lib {
     void print_res(const vector<int>& v, ostream& os) {
         auto it = v.crbegin();
         
+        // Passing leading zeroes
         while (!*it) {
             ++it;
         }
