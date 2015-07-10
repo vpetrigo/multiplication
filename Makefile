@@ -20,6 +20,6 @@ $(EX_OBJ): $(EX_SRC) $(MUL_LIB_DEP)
 	$(CXX) -c $< $(CXX_FLAGS) -I $(MUL_LIB_DIR)
 	
 clean:
-	rm *.o -rf
-	rm $(MUL_LIB_DIR)/*.o -rf
-	rm *.exe
+	@rm *.o -rf
+	@rm $(MUL_LIB_DIR)/*.o -rf
+	@rm *.exe
