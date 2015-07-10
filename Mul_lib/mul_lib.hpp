@@ -70,5 +70,6 @@ namespace Mul_lib {
     \param [in] len length according to it will be extended
     */
     void finalize(std::vector<int>& res);
+    void print_vec(const std::vector<int>& v);
 } // Mul_lib
 #endif // MUL_LIB_HPP
