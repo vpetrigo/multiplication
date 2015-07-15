@@ -7,18 +7,18 @@ namespace Mul_lib {
     constexpr int base = 1e2;
     // lenght of the long number for which naive multiplication
     // will be called in the Karatsuba function
-    constexpr int len_f_naive = 16;
+    constexpr unsigned int len_f_naive = 16;
     // One digit size for numbers with bases multiple of ten
     constexpr int dig_size = 10;
     // How much zeroes have to be in the number
     constexpr int add_zero = base / dig_size;
 
     vector<int> naive_mul(const vector<int>& x, const vector<int>& y) {
-        int len = x.size();
+        auto len = x.size();
         vector<int> res(2 * len);
         
-        for (int i = 0; i < len; ++i) {
-            for (int j = 0; j < len; ++j) {
+        for (auto i = 0; i < len; ++i) {
+            for (auto j = 0; j < len; ++j) {
                 res[i + j] += x[i] * y[j];
             }
         }
@@ -27,14 +27,14 @@ namespace Mul_lib {
     }
 
     vector<int> karatsuba_mul(const vector<int>& x, const vector<int>& y) {
-        int len = x.size();    
+        auto len = x.size();    
         vector<int> res(2 * len);
         
         if (len <= len_f_naive) {
             return naive_mul(x, y);
         }
         
-        int k = len / 2;
+        auto k = len / 2;
         
         vector<int> Xr {x.begin(), x.begin() + k};
         vector<int> Xl {x.begin() + k, x.end()};
@@ -54,19 +54,19 @@ namespace Mul_lib {
         
         vector<int> P3 = karatsuba_mul(Xlr, Ylr);
         
-        for (int i = 0; i < len; ++i) {
+        for (auto i = 0; i < len; ++i) {
             P3[i] -= P2[i] + P1[i];
         }
         
-        for (int i = 0; i < len; ++i) {
+        for (auto i = 0; i < len; ++i) {
             res[i] = P2[i];
         }
 
-        for (int i = len; i < 2 * len; ++i) {
+        for (auto i = len; i < 2 * len; ++i) {
             res[i] = P1[i - len];
         }
 
-        for (int i = k; i < len + k; ++i) {
+        for (auto i = k; i < len + k; ++i) {
             res[i] += P3[i - k];
         }
         
@@ -99,16 +99,12 @@ namespace Mul_lib {
         return vnum;
     }
 
-    void extend_vec(vector<int>& v, int len) {    
+    void extend_vec(vector<int>& v, size_t len) {    
         while (len & (len - 1)) {
             ++len;
         }
         
-        len -= v.size();
-        
-        while (len--) {
-            v.push_back(0);
-        }
+        v.resize(len);
     }
 
     void finalize(vector<int>& res) {

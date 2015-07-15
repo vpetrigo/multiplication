@@ -54,7 +54,7 @@ namespace Mul_lib {
     \param [out] v long integer which will be extented to size of the closest power of two
     \param [in] len length according to it will be extended
     */
-    void extend_vec(std::vector<int>& v, int len);
+    void extend_vec(std::vector<int>& v, size_t len);
     /*!
     Finalize the result of multiplication.
     For example we have a long number with base 100:
