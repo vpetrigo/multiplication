@@ -21,7 +21,7 @@ int main() {
     first = get_number(ifs);
     second = get_number(ifs);
     
-    int n = max(first.size(), second.size());
+    auto n = max(first.size(), second.size());
     
     extend_vec(first, n);
     extend_vec(second, n);
