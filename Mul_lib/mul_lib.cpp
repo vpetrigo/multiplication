@@ -4,18 +4,18 @@ using namespace std;
 
 namespace Mul_lib {
     // current base functions use for operate with long integers
-    constexpr int base = 1e2;
+    constexpr int base = 1e7;
     // lenght of the long number for which naive multiplication
     // will be called in the Karatsuba function
-    constexpr unsigned int len_f_naive = 128;
+    constexpr unsigned int len_f_naive = 32;
     // One digit size for numbers with bases multiple of ten
     constexpr int dig_size = 10;
     // How much zeroes have to be in the number
     constexpr int add_zero = base / dig_size;
 
-    vector<int> naive_mul(const vector<int>& x, const vector<int>& y) {
+    vector<long long> naive_mul(const vector<long long>& x, const vector<long long>& y) {
         auto len = x.size();
-        vector<int> res(2 * len);
+        vector<long long> res(2 * len);
         
         for (auto i = 0; i < len; ++i) {
             for (auto j = 0; j < len; ++j) {
@@ -26,9 +26,9 @@ namespace Mul_lib {
         return res;
     }
 
-    vector<int> karatsuba_mul(const vector<int>& x, const vector<int>& y) {
+    vector<long long> karatsuba_mul(const vector<long long>& x, const vector<long long>& y) {
         auto len = x.size();    
-        vector<int> res(2 * len);
+        vector<long long> res(2 * len);
         
         if (len <= len_f_naive) {
             return naive_mul(x, y);
@@ -36,23 +36,23 @@ namespace Mul_lib {
         
         auto k = len / 2;
         
-        vector<int> Xr {x.begin(), x.begin() + k};
-        vector<int> Xl {x.begin() + k, x.end()};
-        vector<int> Yr {y.begin(), y.begin() + k};
-        vector<int> Yl {y.begin() + k, y.end()};
+        vector<long long> Xr {x.begin(), x.begin() + k};
+        vector<long long> Xl {x.begin() + k, x.end()};
+        vector<long long> Yr {y.begin(), y.begin() + k};
+        vector<long long> Yl {y.begin() + k, y.end()};
         
-        vector<int> P1 = karatsuba_mul(Xl, Yl);
-        vector<int> P2 = karatsuba_mul(Xr, Yr);    
+        vector<long long> P1 = karatsuba_mul(Xl, Yl);
+        vector<long long> P2 = karatsuba_mul(Xr, Yr);    
             
-        vector<int> Xlr(k);
-        vector<int> Ylr(k);
+        vector<long long> Xlr(k);
+        vector<long long> Ylr(k);
         
-        for (int i = 0; i < k; ++i) {
+        for (auto i = 0; i < k; ++i) {
             Xlr[i] = Xl[i] + Xr[i];
             Ylr[i] = Yl[i] + Yr[i];
         }
         
-        vector<int> P3 = karatsuba_mul(Xlr, Ylr);
+        vector<long long> P3 = karatsuba_mul(Xlr, Ylr);
         
         for (auto i = 0; i < len; ++i) {
             P3[i] -= P2[i] + P1[i];
@@ -73,9 +73,9 @@ namespace Mul_lib {
         return res;
     }
 
-    vector<int> get_number(istream& is) {
+    vector<long long> get_number(istream& is) {
         string snum;
-        vector<int> vnum;
+        vector<long long> vnum;
         unsigned int dig = 1;
         int n = 0;
         
@@ -99,7 +99,7 @@ namespace Mul_lib {
         return vnum;
     }
 
-    void extend_vec(vector<int>& v, size_t len) {    
+    void extend_vec(vector<long long>& v, size_t len) {    
         while (len & (len - 1)) {
             ++len;
         }
@@ -107,14 +107,14 @@ namespace Mul_lib {
         v.resize(len);
     }
 
-    void finalize(vector<int>& res) {
-        for (int i = 0; i < res.size(); ++i) {
+    void finalize(vector<long long>& res) {
+        for (auto i = 0; i < res.size(); ++i) {
             res[i + 1] += res[i] / base;
             res[i] %= base;
         }
     }
 
-    void print_res(const vector<int>& v, ostream& os) {
+    void print_res(const vector<long long>& v, ostream& os) {
         auto it = v.crbegin();
         
         // Passing leading zeroes
@@ -124,7 +124,7 @@ namespace Mul_lib {
         
         while (it != v.crend()) {
             int z = -1;
-            int num = *it;
+            auto num = *it;
             
             if (num == 0) {
                 num += 1;
@@ -149,9 +149,9 @@ namespace Mul_lib {
         os << endl;
     }
 
-    void print_vec(const vector<int>& v) {
-        int pos = 0;
-        for (int i : v) {
+    void print_vec(const vector<long long>& v) {
+        size_t pos = 0;
+        for (auto& i : v) {
             cout << "v[" << pos++ << "]: " << i << endl;
         }
     }

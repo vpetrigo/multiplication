@@ -27,7 +27,7 @@ namespace Mul_lib {
     \param  x,y Two long integers
     \return Product of multiplication
     */
-    std::vector<int> naive_mul(const std::vector<int>& x, const std::vector<int>& y);
+    std::vector<long long> naive_mul(const std::vector<long long>& x, const std::vector<long long>& y);
     /*!    
     Karatsuba multiplication algorithm. Uses idea of divide and conquer algorithm.
     More information about it you could find here https://en.wikipedia.org/wiki/Karatsuba_algorithm
@@ -35,26 +35,26 @@ namespace Mul_lib {
     \param  x,y Two long integers
     \return Product of multiplication
     */    
-    std::vector<int> karatsuba_mul(const std::vector<int>& x, const std::vector<int>& y);
+    std::vector<long long> karatsuba_mul(const std::vector<long long>& x, const std::vector<long long>& y);
     /*!
     Get a long integer from input stream
     \param is some input stream which will be used for number getting
     \return long integer
     */
-    std::vector<int> get_number(std::istream& is);
+    std::vector<long long> get_number(std::istream& is);
     /*!
     Output the result to a selected output stream
     \param [in] v long integer
     \param [out] os output stream the long integer will be output to.
     \return long integer in the little endian format according to internal base value
     */
-    void print_res(const std::vector<int>& v, std::ostream& os);
+    void print_res(const std::vector<long long>& v, std::ostream& os);
     /*!
     Output the result to a selected output stream
     \param [out] v long integer which will be extented to size of the closest power of two
     \param [in] len length according to it will be extended
     */
-    void extend_vec(std::vector<int>& v, size_t len);
+    void extend_vec(std::vector<long long>& v, size_t len);
     /*!
     Finalize the result of multiplication.
     For example we have a long number with base 100:
@@ -69,7 +69,7 @@ namespace Mul_lib {
     \param [out] v long integer which will be extented to size of the closest power of two
     \param [in] len length according to it will be extended
     */
-    void finalize(std::vector<int>& res);
-    void print_vec(const std::vector<int>& v);
+    void finalize(std::vector<long long>& res);
+    void print_vec(const std::vector<long long>& v);
 } // Mul_lib
 #endif // MUL_LIB_HPP
