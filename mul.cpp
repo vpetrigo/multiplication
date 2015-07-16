@@ -8,8 +8,8 @@ using namespace std;
 using namespace Mul_lib;
 
 int main() {
-    vector<int> first, second;
-    vector<int> res;
+    vector<long long> first, second;
+    vector<long long> res;
     ifstream ifs{"nums.txt"};
     ofstream ofs{"out.txt"};
     
